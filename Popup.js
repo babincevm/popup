@@ -490,8 +490,7 @@ class Popup {
 
     this._isMoveEventsAdded = true;
 
-    console.log(this._grabListenerOn);
-    this._grabListenerOn.forEach(node => node.addEventListener('mousedown', event => {
+    let mouseDownHandler = event => {
       if ( locked || isReturning ) return;
 
       event.preventDefault();
@@ -517,9 +516,8 @@ class Popup {
       ]);
 
       locked = true;
-    }, true));
-
-    document.addEventListener('mouseup', event => {
+    }
+    let mouseMoveHandler = event => {
       if ( !locked || isReturning ) return;
       event.preventDefault();
       locked = false;
@@ -563,11 +561,8 @@ class Popup {
       if ( percentage <= 0.7 ) {
         this.closePopup();
       }
-
-
-    }, true);
-
-    document.addEventListener('mousemove', event => {
+    }
+    let mouseUpHandler = event => {
       if ( !locked || isReturning ) return;
       event.preventDefault();
 
@@ -605,7 +600,16 @@ class Popup {
           value: percentage,
         },
       ]);
-    }, true);
+    }
+
+    this._grabListenerOn.forEach(node => node.addEventListener('mousedown', event => mouseDownHandler(event), true));
+    this._grabListenerOn.forEach(node => node.addEventListener('touchstart', event => mouseDownHandler(event), true));
+
+    document.addEventListener('mouseup', event => mouseMoveHandler(event), true);
+    document.addEventListener('touchend', event => mouseMoveHandler(event), true);
+
+    document.addEventListener('mousemove', event => mouseUpHandler(event), true);
+    document.addEventListener('touchmove', event => mouseUpHandler(event), true);
 
   }
 }
