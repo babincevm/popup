@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.has-popup body {
+  overflow: hidden;
+}
+
+.popup {
+
+  &__container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    z-index: 999;
+    background-color: var(--popup-background);
+  }
+
+  &__content {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__wrapper {
+
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    &--moving {
+      position: absolute;
+      cursor: grab;
+      top: var(--popup-moving-top);
+      left: var(--popup-moving-left);
+      transform: scale(var(--popup-moving-scale));
+      transform-origin: var(--popup-moving-transform-origin);
+    }
+
+    &--moving-back {
+      position: absolute;
+      pointer-events: none;
+      transition: var(--popup-moving-back-transition);
+      top: var(--popup-moving-back-top);
+      left: var(--popup-moving-back-left);
+    }
+  }
+
+  &--hidden {
+    display: none;
+    pointer-events: none;
+  }
+
+  &--opened {
+    display: flex;
+  }
+
+  &--opening {
+    display: flex;
+    pointer-events: none;
+    transform-origin: var(--animating-transform-origin);
+    animation: openPopupScale var(--opening-timing) var(--opening-animation-timing-func) forwards;
+  }
+
+  &--closing {
+    display: flex;
+    pointer-events: none;
+    transform-origin: var(--animating-transform-origin);
+    animation: closePopupScale var(--closing-timing) var(--closing-animation-timing-func) forwards;
+  }
+  &--moving {
+    opacity: var(--popup-moving-opacity);
+    transition: var(--popup-moving-transition);
+  }
+}
+
+@keyframes openPopupScale {
+  from {
+    transform: scale(var(--scale-start));
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes closePopupScale {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(var(--scale-end));
+  }
+}
