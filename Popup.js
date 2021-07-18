@@ -136,7 +136,7 @@ class Popup {
         if ( this.isNode(selectors.wrapper) ) {
           this._nodes._wrapper = selectors.wrapper;
         } else if ( this.isString(selectors.wrapper) ) {
-          let node = document.querySelector(selectors.wrapper);
+          let node = this.selectNode(selectors.wrapper);
           if ( !node ) {
             console.error('Invalid selector for popup wrapper');
           } else {
@@ -151,7 +151,7 @@ class Popup {
         if ( this.isNode(selectors.closeButton) ) {
           this._nodes._closeButton = selectors.closeButton;
         } else if ( this.isString(selectors.closeButton) ) {
-          let node = document.querySelector(selectors.closeButton);
+          let node = this.selectNode(selectors.closeButton);
           if ( !node ) {
             console.error('Invalid selector for popup close button');
           } else {
@@ -166,7 +166,7 @@ class Popup {
         if ( this.isNode(selectors.content) ) {
           this._nodes._content = selectors.content;
         } else if ( this.isString(selectors.content) ) {
-          let node = document.querySelector(selectors.content);
+          let node = this.selectNode(selectors.content);
           if ( !node ) {
             console.error('Invalid selector for popup content');
           } else {
